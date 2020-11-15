@@ -1,0 +1,9 @@
+
+<div class="row btn-panel">
+    <ul class="nav nav-pills nav-stacked">
+        <li class="{% if activeP == 1 %}active{% endif %}"><a href="{{ 'page.php' | page }}">Trova per prodotto</a></li>
+        {#<li class="{% if activeP == 2 %}active{% endif %}"><a href="{{ 'list_inritiro.php' | page }}">Trova per azienda</a></li>#}
+        <li class="{% if activeP == 3 %}active{% endif %}"><a href="{{ 'list_prenotati.php' | page }}">Prenotati <span class="badge">{{ inritiro }}</span></a></li>
+        <li class="{% if activeP == 4 %}active{% endif %}"><a href="{{ 'list_storico.php' | page }}">Storico</a></li>
+    </ul>
+</div>

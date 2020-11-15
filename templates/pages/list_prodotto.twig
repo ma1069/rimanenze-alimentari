@@ -1,0 +1,113 @@
+{% extends 'bases/base_red.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_red.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Elenco delle disponibilit&agrave; per: <b>{{ titolo }}</b></h2>
+                
+                <div class="row list-group">
+                    {% for prod in prodotti %}
+
+                    <div class="col-lg-4 col-sm-6 col-xs-12 list-group-item">
+                        <div class="row-action-primary">
+                            <img src="{{ prod.icona | asset }}" height="100%"/>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">{{ prod.quantita }} {{ prod.unita_misura }}</div>
+                            <h4 class="list-group-item-heading">{{ prod.prodotto }}</h4>
+                            <h5>Fornito da <b><a href="{{ 'show_negozio.php' | page({'nid' : prod.negId }) }}">{{ prod.azienda }}</a></b><br/>
+                                {% if prod.distanza > 0 %}
+                                ({{ prod.distanza }} km di distanza)
+                                {% endif %}
+                                <a class="btn btn-info" href="{{ 'prenota.php' | page({ 'id' : prod.PPid }) }}">Prenota</a></h5>
+                            <p class="list-group-item-text">
+                                {% if prod.fresco == 1 %}
+                                    <span class="label label-info">Prodotto fresco</span>
+                                {% endif %}
+                                {% if prod.ultima_sett == 1 %}
+                                    <span class="label label-danger">Ultima settimana</span>
+                                {% endif %}
+                                <br/>
+                                {{ prod.descrizione | raw }} &nbsp;<br/>
+                            </p>
+                            <h6>{% if prod.data_scadenza > 0 %}
+                            Scadenza: <b>{{ prod.data_scadenza | date('d/m/y') }}</b>
+                            {% endif %}</h6>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                    
+                    {% endfor %}
+                    
+                    {#
+                    <div class="col-lg-4 col-sm-6 col-xs-12 list-group-item">
+                        <div class="row-action-primary">
+                            <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">15 kg</div>
+                            <h4 class="list-group-item-heading">Cavoletti di Bruxelles</h4>
+                            <h5>Fornito da Bennet S.p.A.<br/>(15km di distanza)
+                                <a class="btn btn-info" href="{{ 'prenota.php' | page }}">Prenota</a></h5>
+                            <p class="list-group-item-text">
+                                <span class="label label-info">Prodotto fresco</span>
+                                <span class="label label-danger">Ultima settimana</span><br/>
+                                Descrizione piuttosto lunga del prodotto. Niente di particolare<br/>
+                            </p>
+                            <h6>Scadenza: <b>20/12/2016</b></h6>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-sm-6 col-xs-12 list-group-item">
+                        <div class="row-action-primary">
+                            <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">15 kg</div>
+                            <h4 class="list-group-item-heading">Cavoletti di Bruxelles</h4>
+                            <h5>Fornito da Bennet S.p.A.<br/>(15km di distanza)
+                                <a class="btn btn-info" href="{{ 'prenota.php' | page }}">Prenota</a></h5>
+                            <p class="list-group-item-text">
+                                <span class="label label-info">Prodotto fresco</span>
+                                <span class="label label-danger">Ultima settimana</span><br/>
+                                Descrizione piuttosto lunga del prodotto. Niente di particolare<br/>
+                            </p>
+                            <h6>Scadenza: <b>20/12/2016</b></h6>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                    
+                    <div class="col-lg-4 col-sm-6 col-xs-12 list-group-item">
+                        <div class="row-action-primary">
+                            <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">15 kg</div>
+                            <h4 class="list-group-item-heading">Cavoletti di Bruxelles</h4>
+                            <h5>Fornito da Bennet S.p.A.<br/>(15km di distanza)
+                                <a class="btn btn-info" href="{{ 'prenota.php' | page }}">Prenota</a></h5>
+                            <p class="list-group-item-text">
+                                <span class="label label-info">Prodotto fresco</span>
+                                <span class="label label-danger">Ultima settimana</span><br/>
+                                Descrizione piuttosto lunga del prodotto. Niente di particolare<br/>
+                            </p>
+                            <h6>Scadenza: <b>20/12/2016</b></h6>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                    #}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

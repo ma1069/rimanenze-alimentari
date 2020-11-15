@@ -1,0 +1,48 @@
+{% extends 'bases/base_blue.twig' %}
+{% block main %}
+<script src="{{ 'addtohomescreen.js' | asset }}"></script>
+<link rel="stylesheet" href="{{ 'addtohomescreen.css' | asset }}"/>
+<script>addToHomescreen();</script>
+<div class="jumbotron" style="text-align:center;">
+    <h1>Una rete in APPoggio</h1>
+    <p>
+        Rete di volontariato per la raccolta delle eccedenze alimentari
+    </p>
+</div>
+<div class="col-sm-8 col-sm-offset-2">
+    <div class="panel panel-defualt row">
+        <h2 style="text-align:center">Login</h2>
+        <form class="form-horizontal" action="{{ 'do/login.php' | page }}" method="post">
+            <fieldset class="panel-body col-sm-9 col-sm-offset-2">
+                {% if again is defined and again == 1 %}
+                <div class="form-group">
+                    <label class="col-sm-3 control-label"></label>
+                    <div class="col-sm-9">
+                        <p class="text-danger">Username o password non validi. Riprovare</p>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="form-group">
+                    <label for="mail" class="col-sm-3 control-label">Email</label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" id="mail" name="mail" placeholder="Email"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pass" class="col-sm-3 control-label">Password</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="pass" name="pass" placeholder="Password"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+
+        
+    </div>
+</div>
+{% endblock %}

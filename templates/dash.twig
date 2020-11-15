@@ -1,0 +1,79 @@
+    <aside>
+        <a class="btn"><i class="fa fa-plus"></i> aggiungi</a>
+        <a class="btn"><i class="fa fa-bank"></i> storico </a>
+    </aside>
+    <section>
+        <h2>Prodotti</h2>
+        <br/>
+        
+        {% if filter == 'base' %}
+        <a class="btn toggle" data-filter="PRE">solo prenotati</a>
+        <a class="btn toggle" data-filter="DIS">solo in attesa</a>
+        <a class="btn toggle active" data-filter="">tutti</a>
+        {% else %}
+        <a class="btn toggle" data-filter="FRE">fresco</a>
+        <a class="btn toggle active" data-filter="">tutti</a>
+        {% endif %}
+        <table>
+            <thead>
+                <tr>
+                    {% if filter == 'base' %}
+                    <th class="hw">Ora Ritiro</th>
+                    {% else %}
+                    <th class="hw">Ora Pubblicazione</th>
+                    {% endif %}
+                    <th>Prodotto</th>
+                    <th>Stato</th>
+                    <th>Comandi</th>
+                </tr>
+            </thead>
+        <tbody>
+            {% for prod in prods %}
+            {% if filter == 'base' %}
+            <tr data-type='{{ prod.stato }}'>
+            {% else %} 
+            <tr data-type='{{ prod.fresco == 1? 'FRE' : 'SEC' }}'>
+            {% endif %}
+                
+                {% if filter == 'base' %} 
+                    {% if prod.stato == 'DIS' %}
+                        <td> -- </td>
+                    {% else %}
+                        <td>{{ prod.data_ritiro | date('H:i') }} <small>| {{ prod.data_ritiro | date('d/m/Y') }}</small></td>        
+                    {% endif %}
+                {% else %}
+                    <td>{{ prod.pubblicazione | date('H:i') }} <small>| {{ prod.pubblicazione | date('d/m/Y') }}</small></td>
+                {% endif %}
+                <td> {{ prod.nome }} {% if prod.fresco == 1 %}<i class="fa fa-asterisk" title="fresco"></i>{% endif %} <small>{{ prod.quantita }}</small></td>
+                <td>
+                    {% if prod.stato == 'PRE' %}<span class="lbl green">prenotato</span>{%
+                    elseif prod.stato == 'RIT' %}<span class="lbl grey">ritirato</span>{%
+                    elseif prod.stato == 'DIS' %}<span class="lbl orange">in attesa</span>{% endif %}
+                </td>
+                <td class="r">
+                    {% if prod.stato == 'PRE' %}
+                        <a class="btn open-mod" href="contact.php?id={{ prod.id }}" title="contatta"><i class="fa fa-envelope-o"></i></a>
+                        {% if filter == 'base' %}
+                        <a class="btn open-refresh" href="mark_rit.php?id={{ prod.id }}" title="contrassegna come ritirato"><i class="fa fa-check"></i></a>
+                        {% endif %}
+                    {% elseif prod.stato == 'RIT' %}
+                        {% if filter == 'base' %}
+                        <a class="btn open-refresh" href="mark_pre.php?id={{ prod.id }}" title="annulla pubblicazione"><i class="fa fa-close"></i></a>
+                        {% endif %}
+                    {% elseif prod.stato == 'DIS' %}
+                        {% if filter == 'base' %}
+                        <a class="btn open-refresh" href="mark_frz.php?id={{ prod.id }}" title="annulla consegna"><i class="fa fa-close"></i></a>
+                        {% else %}
+                        <a class="btn open-refresh" href="mark_book.php?id={{ prod.id }}" title="prenota"><i class="fa fa-check"></i></a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+
+    </section>
+    <script type="text/javascript">
+        target_url = "{{ target_url }}";
+    </script>

@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /
+#RewriteCond	%{HTTP_HOST} ^.*\.php$ [NC]
+RewriteRule	^\/?$	index.php	[P]
+
+RewriteCond	%{REQUEST_URI} ^/mirror/
+RewriteRule	mirror(.*)	$1	[P,R=301]
+
+RewriteCond	%{REQUEST_URI} !/pages/
+RewriteRule	^(.*\.php)$	/pages/$1	[P]
+
+#RewriteRule	^(.*)$	pages/$1	[P]
+#RewriteRule    ^products/([0-9]+)/?$    show_a_product.php?product_id=$1    [NC,L]    # Handle product requests

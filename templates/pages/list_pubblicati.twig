@@ -1,0 +1,92 @@
+{% extends 'bases/base_blue.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_blue.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Elenco dei prodotti pubblicati</h2>
+                
+                <div class="row list-group">
+                    
+                    {% for prod in disponibili_prods %}
+                    
+                    <div class="col-lg-4 col-sm-6 col-xs-12 list-group-item">
+                        <div class="row-action-primary">
+                            <img src="{{ prod.icona | asset }}" height="100%"/>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">{{ prod.quantita }} {{ prod.unita_misura }}</div>
+                            <h4 class="list-group-item-heading">{{ prod.prodotto }}</h4>
+                            <h5><a class="btn btn-info" href="{{ 'edt_prodotto.php' | page({'pid' : prod.id}) }}"  title="Modifica"><i class="material-icons">create</i></a>
+                                <a class="btn btn-danger" href="{{ 'do/del_prodotto.php' | page({'pid' : prod.id}) }}" title="Elimina"><i class="material-icons">clear</i></a></h5>
+                            <p class="list-group-item-text">
+                                {% if prod.fresco == 1 %}
+                                    <span class="label label-info">Prodotto fresco</span>
+                                {% endif %}
+                                {% if prod.ultima_sett == 1 %}
+                                    <span class="label label-danger">Ultima settimana</span>
+                                {% endif %}
+                                <br/>
+                                {{ prod.descrizione }} &nbsp;<br/>
+                            </p>
+                            <h6>{% if prod.data_scadenza > 0 %}
+                            Scadenza: <b>{{ prod.data_scadenza | date('d/m/y') }}</b>
+                            {% endif %}</h6>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                    
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+	{% if scaduti_prods | length > 0 %}
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Prodotti pubblicati ma scaduti</h2>
+                
+                <div class="row list-group">
+                    
+                    {% for prod in scaduti_prods %}
+                    
+                    <div class="col-lg-4 col-sm-6 col-xs-12 list-group-item">
+                        <div class="row-action-primary">
+                            <img src="{{ prod.icona | asset }}" height="100%"/>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">{{ prod.quantita }} {{ prod.unita_misura }}</div>
+                            <h4 class="list-group-item-heading">{{ prod.prodotto }}</h4>
+                            <h5><a class="btn btn-danger" href="{{ 'do/del_prodotto.php' | page({'pid' : prod.id}) }}" title="Elimina"><i class="material-icons">clear</i></a></h5>
+                            <p class="list-group-item-text">
+                                {% if prod.fresco == 1 %}
+                                    <span class="label label-info">Prodotto fresco</span>
+                                {% endif %}
+                                {% if prod.ultima_sett == 1 %}
+                                    <span class="label label-danger">Ultima settimana</span>
+                                {% endif %}
+                                <br/>
+                                {{ prod.descrizione }} &nbsp;<br/>
+                            </p>
+                            <h6>{% if prod.data_scadenza > 0 %}
+                            Scadenza: <b>{{ prod.data_scadenza | date('d/m/y') }}</b>
+                            {% endif %}</h6>
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                    
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+	{% endif %}
+    </div>
+</div>
+
+
+{% endblock %}

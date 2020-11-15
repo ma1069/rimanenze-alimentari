@@ -1,0 +1,34 @@
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="{{ 'style.css' | asset }}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ 'remodal.css' | dist }}">
+    <link rel="stylesheet" href="{{ 'remodal-theme.css' | dist }}">
+<meta name="apple-mobile-web-app-capable" content="yes" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body class="hero"
+    data-login="{{ 'login.php' | page }}"
+    data-next="{{ nexturl | page }}"
+    data-islogged="{{ logged }}"
+        >
+    <header>
+      <div class="limiter">
+        <a href="{{ 'do_logout.php' | page }}" class="btn pull-right"><i class="fa fa-power-off"></i> logout</a>
+        <h1 class="open-refresh">The mirror project</h1>
+      </div>
+    </header>
+    <div class="errorMsg">XXX</div>
+    <div class="loading">
+      <i class="fa fa-3x fa-cog fa-spin"></i>
+      Loading
+    </div>
+    <div class="remodal" data-remodal-id="modal">
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="{{ 'remodal.js' | dist }}"></script>
+    <script type="text/javascript" src="{{ 'logic.js' | asset }}"></script>
+  </body>
+</html>

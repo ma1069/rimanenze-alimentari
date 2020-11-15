@@ -1,0 +1,110 @@
+{% extends 'bases/base_red.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_red.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Dettagli: <b>{{ prodotto.prodotto }}</b></h2>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <form id="form-prenota" class="form-horizontal" method="post" action="{{ 'do/prenota_prodotto.php' | page({ 'pid' : prodotto.id }) }}">
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <img class="img-mid" src="{{ prodotto.icona | asset }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descrizione" class="col-sm-5 control-label">Descrizione</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="descrizione" class="form-control" readonly
+                                            value="{{ prodotto.descrizione }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fda" class="col-sm-5 control-label">Fornito da</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="fda" class="form-control" readonly
+                                            value="{{ prodotto.negozio }}"/>
+                                    </div>
+                                </div>
+                                {% if prodotto.distanza > 0 %}
+                                <div class="form-group">
+                                    <label for="dist" class="col-sm-5 control-label">Distanza</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="dist" class="form-control" readonly
+                                            value="{{ prodotto.distanza }} km"/>
+                                    </div>
+                                </div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <label for="amount" class="col-sm-5 control-label">Quantita</label>
+                                    <div class="col-sm-7">
+                                        <input type="hidden" id="max_amount" name="max_amount" value="{{ prodotto.quantita }}"/>
+                                        <input type="hidden" id="amount" name="amount" value="{{ prodotto.quantita }}"/>
+                                        <div class="slider shor" id="amt-slider" data-max="{{ prodotto.quantita }}"></div> <div class="additional-label"><span data-rid="amt-slider">{{ prodotto.quantita }}</span> kg</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="ritiro" class="col-sm-5 control-label">Data/Ora ritiro</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="ritiro" name="ritiro" class="form-control"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="note" class="col-sm-5 control-label">Note</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="note" name="note" class="form-control"/>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <button type="reset" class="btn btn-default" onclick="javascript:window.history.back()">Annulla</button>
+                                    <button type="submit" class="btn btn-primary">Prenota</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block addscript %}
+    $(function() {
+        $('#ritiro').bootstrapMaterialDatePicker({ format : 'DD/MM/YYYY HH:mm', minDate : new Date(), shortTime: false });
+        $(".shor").noUiSlider({
+            start: parseInt($(".shor").attr("data-max")),
+            connect: "lower",
+            step: 0.5,
+            range: {
+                min: 0,
+                max: parseInt($(".shor").attr("data-max"))
+            }
+        }).on('slide', function (e,value) {
+            $("[data-rid='amt-slider']").html(value);
+            $("#amount").val(value);
+        });
+
+        $("#form-prenota").submit(function(e) {
+            var rit = $("#ritiro"),
+                val = rit.val();
+
+            if (val == '') {
+                alert('Specifica una data di ritiro');
+                return false;
+            }
+            return true;
+        });
+    });
+{% endblock %}

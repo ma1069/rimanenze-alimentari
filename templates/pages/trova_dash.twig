@@ -1,0 +1,54 @@
+{% extends 'bases/base_red.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_red.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Trova prodotti</h2>
+                <ul class="btn-set">
+                    {% for prod in prodotti %}
+                     <li><a href="{{ 'list_prodotto.php' | page({ 'cat' : prod.id }) }}" title="{{ prod.nome }}" class="theme-{{prod.theme}}">
+                        <img src="{{ prod.icona | asset }}" height="100%" />
+                        {% if prod.qta > 0 %}
+                        <span class="badge">{{ prod.qta }}</span>
+                        {% endif %}
+                    </a></li>
+                    {% endfor %}
+                    
+                    {#
+                    <li><a href="{{ 'list_prodotto.php' | page }}">
+                        <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                        <span class="badge">20</span>
+                    </a></li>
+                    <li><a href="#">
+                        <img src="{{ 'svg/lettuce-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                        <span class="badge">6</span>
+                    </a></li>
+                    <li><a href="#">
+                        <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                        <span class="badge">20</span>
+                    </a></li>
+                    <li><a href="#">
+                        <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                        <span class="badge">20</span>
+                    </a></li>
+                    <li><a href="#">
+                            <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                    </a></li>
+                    <li><a href="#">
+                            <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                    </a></li>
+                    <li><a href="#">
+                            <img src="{{ 'svg/apple-organicfood-v1-codrops-wojciechzasina.svg' | asset }}" height="100%"/>
+                    </a></li>
+                    #}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

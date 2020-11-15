@@ -1,0 +1,55 @@
+{% extends 'bases/base_blue.twig' %}
+{% block main %}
+<div class="panel panel-success">
+    <div class="panel-heading">
+        <h3 class="panel-title">Elenco Negozi
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+		<thead><tr>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>Azioni</th>
+		</tr></thead>
+		<tbody>
+		{% for azienda in negozi %}
+			<tr>
+				<td>{{ azienda.id }}</td>
+				<td>{{ azienda.nome }}</td>
+				<td>
+					<a href="{{ ('adm_edit.php?id=' ~ azienda.id) | page }}" class="btn btn-raised btn-default btn-xs">Modifica</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ 'adm_edit.php' | page }}" class="btn btn-raised btn-success">Inserisci</a>
+    </div>
+</div>
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <h3 class="panel-title">Elenco Aziende
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover">
+		<thead><tr>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>Azioni</th>
+		</tr></thead>
+		<tbody>
+		{% for azienda in aziende %}
+			<tr>
+				<td>{{ azienda.id }}</td>
+				<td>{{ azienda.nome }}</td>
+				<td>
+					<a href="{{ ('adm_edit.php?id=' ~ azienda.id) | page }}" class="btn btn-raised btn-default btn-xs">Modifica</a>
+				</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+	<a href="{{ 'adm_edit.php' | page }}" class="btn btn-raised btn-danger">Inserisci</a>
+    </div>
+</div>
+{% endblock %}

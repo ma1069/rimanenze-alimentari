@@ -1,0 +1,12 @@
+<section id="login">
+    {% if again is defined and again == 1 %}
+    <p class="warn">Username o password non validi. Riprovare</p>
+    {% endif %}
+    <form action="{{ 'do_login.php' | page }}" method="post" id="login-form">
+        <label for="name">Nome</label>
+        <input type="text" id="name" name="name"/>
+        <label for="pass">Password</label>
+        <input type="password" id="pass" name="pass"/>
+        <input type="submit" class="btn" value="Log in">
+    </form>
+</section>

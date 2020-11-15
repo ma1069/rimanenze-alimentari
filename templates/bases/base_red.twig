@@ -1,0 +1,88 @@
+<!doctype html!>
+<html>
+    <head>
+        <title>Una rete in APPoggio</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ 'material.min.css ' | asset }}" />
+        <link rel="stylesheet" href="{{ 'material.timepick.css' | asset }}"/>
+        <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{ 'nstyle.css' | asset }}"/>
+        <meta charset="utf-8"/>
+<meta name="apple-mobile-web-app-capable" content="yes" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+   </head>
+    <body>
+        <div class="navbar navbar-warning">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="navbar-brand">Una rete in APPoggio</a>
+                    <div class="pull-right">
+                        <a class="logout-btn" href='{{ 'logout.php' | page }}'>Logout</a>
+                    </div>
+                    <div class="pull-right">
+                        <h3>{{ username }}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% block main %}{% endblock %}
+        </div>
+        
+        <footer>
+            <p>Sito realizzato dall'<em>Accademia dell'Hardware e del Software Libero "Adriano Olivetti"</em>.<br/>
+               Per assistenza, contattare <a href="mailto:accademialibera@gmail.com">accademialibera@gmail.com</a></p>
+            <small>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> and <a href="http://field5.com" title="Agata Kuczminska">Agata Kuczminska</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed under <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a> </small>
+        </footer>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+		<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/6.2.0/jquery.nouislider.min.js"></script>
+        
+        <script type="text/javascript" src="{{ 'material.timepick.js' | asset }}"></script>
+        <script type="text/javascript">
+            $.material.init();
+            
+            {% block addscript %}{% endblock %}
+        </script>
+        <script type="text/javascript">
+                //Let's make awesome buttons!! yo!
+                var $act = null, cx=0, cy=0;
+                $(function() {
+                        $("body").on('mouseenter', '.btn-set > li > a', function(e) {
+                                $act = $(e.currentTarget);
+                                cx = $act.offset().left + (50);
+                                cy = $act.offset().top + (50);
+                                $act.css('transition', '0s')
+                                        .css('-webkit-transition', '0s');
+                        }).on('mouseleave', '.btn-set li a', function(e) {
+                                $act.attr("style","");
+                                $act = null;
+                        });
+                        var timer = null;
+                        $("body").on('mousemove', '.btn-set li a', function(e) {
+                                window.clearTimeout(timer);
+                                timer = window.setTimeout(function() {
+                                        updateTimer(e);
+                                },0);
+                        });
+                        function updateTimer(e) {
+                                if ($act == null) return;
+                                var offX = -(e.pageX-cx)/$act.width();
+                                var offY = -(e.pageY-cy)/$act.height();
+                                offX = Math.max(Math.min(offX,0.5),-0.5);
+                                offX = Math.round(offX*35);
+                                offY = Math.max(Math.min(offY,0.5),-0.5);
+                                offY = Math.round(offY*35);
+                                var tPoster = 'translateY(-5px) rotateX(' + -offY + 'deg) rotateY(' + offX + 'deg)';
+                                $act.css('transform', tPoster);
+                        }
+                });
+        </script>
+
+    </body>
+</html>

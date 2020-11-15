@@ -1,0 +1,7 @@
+<div class="row btn-panel">
+    <ul class="nav nav-pills nav-stacked">
+        <li class="{% if activeP == 1 %}active{% endif %}"><a href="{{ 'page.php' | page }}">Inserisci</a></li>
+        <li class="{% if activeP == 2 %}active{% endif %}"><a href="{{ 'list_inritiro.php' | page }}">In ritiro <span class="badge">{{ inritiro }}</span></a></li>
+        <li class="{% if activeP == 3 %}active{% endif %}"><a href="{{ 'list_pubblicati.php' | page }}">Pubblicati <span class="badge">{{ disponibili }}</span></a></li>
+    </ul>
+</div>

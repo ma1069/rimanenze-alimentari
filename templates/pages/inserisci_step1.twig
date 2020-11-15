@@ -1,0 +1,25 @@
+{% extends 'bases/base_blue.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_blue.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Aggiungi il tuo prodotto</h2>
+                <ul class="btn-set">
+
+                    {% for prodotto in prodotti %}
+                    <li><a class="theme-{{ prodotto.theme }}" href="{{ 'inserisci.php' | page({'prodotto':prodotto.id}) }}" title="{{ prodotto.nome }}">
+                            <img src="{{ prodotto.icona | asset }}" height="100%"/>
+                    </a></li>
+                    {% endfor %}
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

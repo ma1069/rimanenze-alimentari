@@ -1,0 +1,58 @@
+{% extends 'bases/base_red.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_red.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Elenco dei prodotti prenotati</h2>
+                
+                <div class="row list-group">
+                    
+                    {% for prod in prodotti %}
+                    
+                    <div class="col-lg-4 col-sm-6 col-xs-12 list-group-item">
+                        <div class="row-action-primary">
+                            <img src="{{ prod.icona | asset }}" height="100%"/>
+                        </div>
+                        <div class="row-content">
+                            <div class="least-content">{{ prod.quantita }} {{ prod.unita_misura }}</div>
+                            <h4 class="list-group-item-heading">{{ prod.prodotto }}</h4>
+                            <h5>Fornito da <b><a href="{{ 'show_negozio.php' | page({'nid' : prod.negId }) }}">{{ prod.negozio }}</a></b><br/>
+                                {% if prod.distanza > 0 %}
+                                ({{ prod.distanza }} km di distanza)
+                                {% endif %}
+                                <a class="btn btn-info" href="{{ 'do/ritira_prodotto.php' | page({'pid' : prod.id}) }}"  title="Archivia (segna come ritirato)"><i class="material-icons">archive</i></a>
+                                <a class="btn btn-danger" href="{{ 'do/sprenota_prodotto.php' | page({'pid' : prod.id}) }}" title="Annulla prenotazione"><i class="material-icons">clear</i></a></h5>
+                            <p class="list-group-item-text">
+                                {% if prod.fresco == 1 %}
+                                    <span class="label label-info">Prodotto fresco</span>
+                                {% endif %}
+                                {% if prod.ultima_sett == 1 %}
+                                    <span class="label label-danger">Ultima settimana</span>
+                                {% endif %}
+                                <br/>
+                                {{ prod.descrizione }} &nbsp;<br/>
+                            </p>
+			    {% if prod.data_ritiro > 0 %}
+                            <h5>Da ritirare il: <b>{{ prod.data_ritiro | date('d/m/y H:i') }}</b></h5>
+			    {% else %}
+			    <h5>Da ritirare il: <b>-non specificato-</b></h5>
+			    {% endif %}
+                        </div>
+                        <div class="list-group-separator"></div>
+                    </div>
+                    
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

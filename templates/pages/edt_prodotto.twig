@@ -1,0 +1,73 @@
+{% extends 'bases/base_blue.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_blue.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Modifica prodotto</h2>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <form class="form-horizontal" method="POST" action="{{ 'do/edt_prodotto.php' | page }}">
+                            <input type="hidden" name="id" value="{{ prodotto.id }}"/>
+                            <fieldset>
+                                <div class="form-group">
+                                    <label for="descrizione" class="col-sm-5 control-label">Descrizione</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="desc" id="descrizione" class="form-control"
+                                            value="{{ prodotto.descrizione }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="qta" class="col-sm-5 control-label">Quantit&agrave; (kg)</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="qta" id="qta" class="form-control"
+                                            value="{{ prodotto.quantita }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="scad" class="col-sm-5 control-label">Scadenza</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="scad" id="scad" class="form-control"
+					    {% if prodotto.data_scadenza > 0 %}
+                                            value="{{ prodotto.data_scadenza | date ('d/m/y') }}"
+					    {% endif %}
+					/>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="fresco" class="col-sm-5 control-label"></label>
+                                    <div class="col-sm-7" style="text-align:left">  
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" name="fresco" {% if prodotto.fresco == 1 %}checked{% endif %}> <b>Fresco</b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <button class="btn btn-default" onclick="javascript:window.history.back()">Annulla</button>
+                                    <button type="submit" class="btn btn-primary">Aggiorna</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block addscript %}
+    $(function() {
+       $('#scad').bootstrapMaterialDatePicker({ format : 'DD/MM/YYYY', minDate : new Date(), 'time':false }); 
+    });
+{% endblock %}

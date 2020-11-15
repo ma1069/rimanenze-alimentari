@@ -1,0 +1,90 @@
+{% extends 'bases/base_blue.twig' %}
+{% block main %}
+
+<div class="row">
+    <div class="col-sm-2">
+        {% include 'bases/sidebar_blue.twig' %}
+    </div>
+    <div class="col-sm-10">
+        <div class="panel panel-default row choose-panel">
+            <div class="col-xs-12">
+                <h2>Segnala la tua disponibilit&agrave;</h2>
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <form id="form-insert" class="form-horizontal" method="POST" action="do/add_product.php">
+                            <fieldset>
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <img class="img-mid" src="{{ prodotto.icona | asset }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="nome" class="col-sm-5 control-label">Nome</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" id="nome" class="form-control" readonly value="{{ prodotto.nome }}"/>
+                                        <input type="hidden" name="id" class="form-control" readonly value="{{ prodotto.id }}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="descrizione" class="col-sm-5 control-label">Descrizione</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="desc" id="descrizione" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="qta" class="col-sm-5 control-label">Quantit&agrave; ({{ prodotto.unita_misura }})</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="qta" id="qta" class="form-control" onkeypress='return (event.charCode >= 48 && event.charCode <= 57) || event.charCode == 46 || event.charCode == 44'/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="scad" class="col-sm-5 control-label">Scadenza</label>
+                                    <div class="col-sm-7">
+                                        <input type="text" name="scad" id="scad" class="form-control"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="fresco" class="col-sm-5 control-label"></label>
+                                    <div class="col-sm-7" style="text-align:left">  
+                                        <div class="togglebutton">
+                                            <label>
+                                                <input type="checkbox" name="fresco"> <b>Fresco</b>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </fieldset>
+                            <div class="form-group">
+                                <div class="col-sm-10 col-sm-offset-2">
+                                    <button class="btn btn-default" onclick="javascript:window.history.back()">Annulla</button>
+                                    <button type="submit" class="btn btn-primary">Inserisci</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block addscript %}
+    $(function() {
+        $('#scad').bootstrapMaterialDatePicker({ format : 'DD/MM/YYYY', minDate : new Date(), 'time':false }); 
+
+        $('#form-insert').submit(function(e) {
+            var qta = $('#qta'),
+                val = parseFloat(qta.val());
+            qta.val(val);
+            if (isNaN(val) || val < 0.01) {
+                alert("Inserire una quantitá valida");
+                qta.val("");
+                return false;
+            }
+            return true;
+        });
+    });
+{% endblock %}
