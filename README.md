@@ -1,4 +1,4 @@
-# mirror
+# Rimanenze Alimentari (codename: mirror)
 PHP Portal to prevent waste of food surplus.
 
 The website allow shops to report the surplus they have so that charities can recover them
@@ -27,6 +27,10 @@ inaccessible to the public.
 The next step is to load the `dump.sql` file to your own database, and configure the 
 `lib/database.php` file with the proper database url/database/password.
 
-Then, you should be good to go. Happy coding :) Pull requests are more than welcome!
+Then, you should be good to go. Happy coding :) Just browse the application starting from
+/pages/login.php and log in as administrator (user: admin@mirror.cc, passsword: prova). 
 
 
+Pull requests are more than welcome!
+
+This project is being licensed with the GNU Affero license, attached in the file LICENSE
